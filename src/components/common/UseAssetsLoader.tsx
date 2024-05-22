@@ -8,12 +8,9 @@ export default function useAssetsLoader(
   let loadedAssets = 0;
 
   useEffect(() => {
-    const loadImage = (src: string) => {
+    const loadAssets = (src: string) => {
       return new Promise((resolve, reject) => {
-        const loadImg = new Image();
-        loadImg.src = src;
-        // wait 2 seconds to simulate loading time
-        loadImg.onload = () => {
+        const onAssetsLoad = () => {
           loadedAssets++;
           const numPrecent = (loadedAssets * 100) / assets.length;
           precent(numPrecent < 100 ? numPrecent : 100);
@@ -23,11 +20,21 @@ export default function useAssetsLoader(
           }, 1000);
         };
 
-        loadImg.onerror = (err) => reject(err);
+        if (src.endsWith('.png')) {
+          const loadImg = new Image();
+          loadImg.src = src;
+          loadImg.onload = () => onAssetsLoad();
+          loadImg.onerror = (err) => reject(err);
+        } else if (src.endsWith('.mp3')) {
+          const loadMp3 = new Audio();
+          loadMp3.src = src;
+          loadMp3.onloadstart = () => onAssetsLoad();
+          loadMp3.onerror = (err) => reject(err);
+        }
       });
     };
 
-    Promise.all(assets.map((src) => loadImage(src)))
+    Promise.all(assets.map((src) => loadAssets(src)))
       .then(() => onLoaded())
       .catch((err) => console.log('Failed to load images', err));
   }, []);

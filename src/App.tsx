@@ -38,7 +38,6 @@ function App() {
     telo,
   };
 
-  // TODO: add active item key
   const categories: Category[] = [
     {
       id: 'telo',
@@ -365,6 +364,7 @@ function App() {
       'touchstart',
       () => {
         if (isAudioPlayed) return;
+        audio.loop = true;
         audio.play();
         isAudioPlayed = true;
       },
@@ -376,20 +376,23 @@ function App() {
   const [assetsIsLoaded, setAssetsIsLoaded] = useState(false);
 
   const allAssets = useMemo(() => {
-    const imgs: string[] = [];
+    const assets: string[] = [];
     categories.forEach((category) => {
-      category.items.forEach((item) => imgs.push(item.img));
-      imgs.push(category.icon.active);
-      imgs.push(category.icon.default);
+      category.items.forEach((item) => assets.push(item.img));
+      assets.push(category.icon.active);
+      assets.push(category.icon.default);
+      assets.push('/assets/FACE_BURGER.mp3');
     });
-    return imgs;
+    return assets;
   }, []);
 
   const [precent, setPrecent] = useState(0);
 
   useAssetsLoader(
     allAssets,
-    () => setAssetsIsLoaded(true),
+    () => {
+      setAssetsIsLoaded(true);
+    },
     (val) => setPrecent(val)
   );
 
