@@ -82,7 +82,7 @@ const ClothingItem: React.FC<{
           <img
             src={item.img}
             alt={item.id}
-            style={{ opacity: item?.menuTitle ? 0 : 1 }}
+            style={{ display: item?.menuTitle ? 'none' : 'block' }}
           />
         </Styled.ClothingItem>
       ))}
