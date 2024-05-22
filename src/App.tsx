@@ -17,7 +17,7 @@ function App() {
   const [bottom, setBottom] = useState<ClothesStateType | undefined>();
   const [socks, setSocks] = useState<ClothesStateType | undefined>();
   const [shoes, setShoes] = useState<ClothesStateType | undefined>();
-  const [tail, setTail] = useState<ClothesStateType | undefined>();
+  const [tail] = useState<ClothesStateType | undefined>();
   const [bags, setBag] = useState<ClothesStateType | undefined>();
   const [outfit, setOutfit] = useState<ClothesStateType | undefined>();
   const [telo, setTelo] = useState<ClothesStateType | undefined>();

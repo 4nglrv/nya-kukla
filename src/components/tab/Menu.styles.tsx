@@ -39,7 +39,8 @@ const styledComponents = {
     background: #fff;
     max-width: 280px;
     max-height: 136px;
-    overflow: scroll;
+    overflow-y: auto;
+    scrollbar-width: thin;
   `,
 
   ItemsWrapper: styled.div`
@@ -48,7 +49,7 @@ const styledComponents = {
     align-items: center;
     padding: 1.2em 2.1em;
     height: 100%;
-    gap: 12px;
+    gap: 9px;
   `,
 
   ClothingItem: styled.div<{ $isActive?: boolean }>`
