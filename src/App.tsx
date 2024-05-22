@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Styled from './App.styles';
+import useAssetsLoader from './components/common/UseAssetsLoader';
 import Tab from './components/tab/Menu';
 import Telo from './components/telo/Telo';
 import {
@@ -372,12 +373,34 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
+  const [assetsIsLoaded, setAssetsIsLoaded] = useState(false);
+
+  const allAssets = useMemo(() => {
+    const imgs: string[] = [];
+    categories.forEach((category) =>
+      category.items.forEach((item) => imgs.push(item.img))
+    );
+    return imgs;
+  }, []);
+
+  const [precent, setPrecent] = useState(0);
+
+  useAssetsLoader(
+    allAssets,
+    () => setAssetsIsLoaded(true),
+    (val) => setPrecent(val)
+  );
+
   return (
     <Styled.App>
-      <Styled.GameContainer>
-        <Telo categories={categories} clothes={clothesState} />
-        <Tab categories={categories} clothes={clothesState} />
-      </Styled.GameContainer>
+      {!assetsIsLoaded ? (
+        <Styled.Loader>ЭШКЕРЕ ЗАГРУЗКА {Math.floor(precent)}%</Styled.Loader>
+      ) : (
+        <Styled.GameContainer>
+          <Telo categories={categories} clothes={clothesState} />
+          <Tab categories={categories} clothes={clothesState} />
+        </Styled.GameContainer>
+      )}
     </Styled.App>
   );
 }
