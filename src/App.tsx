@@ -377,9 +377,11 @@ function App() {
 
   const allAssets = useMemo(() => {
     const imgs: string[] = [];
-    categories.forEach((category) =>
-      category.items.forEach((item) => imgs.push(item.img))
-    );
+    categories.forEach((category) => {
+      category.items.forEach((item) => imgs.push(item.img));
+      imgs.push(category.icon.active);
+      imgs.push(category.icon.default);
+    });
     return imgs;
   }, []);
 
