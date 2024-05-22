@@ -365,6 +365,7 @@ function App() {
       () => {
         if (isAudioPlayed) return;
         audio.loop = true;
+        audio.autoplay = true;
         audio.play();
         isAudioPlayed = true;
       },
