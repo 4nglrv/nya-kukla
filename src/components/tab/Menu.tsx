@@ -76,11 +76,14 @@ const ClothingItem: React.FC<{
           onClick={() => handleItemChange(item)}
           $isActive={item.id === currClothes?.currItem.id}
         >
-          {item?.menuTitle ? (
+          {item?.menuTitle && (
             <Styled.MenuTitle>{item.menuTitle}</Styled.MenuTitle>
-          ) : (
-            <img src={item.img} alt={item.id} />
           )}
+          <img
+            src={item.img}
+            alt={item.id}
+            style={{ opacity: item?.menuTitle ? 0 : 1 }}
+          />
         </Styled.ClothingItem>
       ))}
     </Styled.ItemsWrapper>
