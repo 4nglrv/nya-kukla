@@ -357,20 +357,7 @@ function App() {
     setOutfit(initialOutfit);
     setShoes(initialShoes);
     setTelo(initialTelo);
-
-    let isAudioPlayed = false;
-
-    window.addEventListener(
-      'touchstart',
-      () => {
-        if (isAudioPlayed) return;
-        audio.loop = true;
-        audio.autoplay = true;
-        audio.play();
-        isAudioPlayed = true;
-      },
-      false
-    );
+    audio.loop = true;
     // eslint-disable-next-line
   }, []);
 
@@ -388,19 +375,30 @@ function App() {
   }, []);
 
   const [precent, setPrecent] = useState(0);
+  const [isStart, setIsStart] = useState(false);
 
   useAssetsLoader(
     allAssets,
-    () => {
-      setAssetsIsLoaded(true);
-    },
+    () => setAssetsIsLoaded(true),
     (val) => setPrecent(val)
   );
 
+  const handleStart = () => {
+    audio.play();
+    setIsStart(true);
+  };
+
   return (
     <Styled.App>
-      {!assetsIsLoaded ? (
-        <Styled.Loader>ЭШКЕРЕ ЗАГРУЗКА {Math.floor(precent)}%</Styled.Loader>
+      {!assetsIsLoaded || !isStart ? (
+        <>
+          <Styled.Loader>ЭШКЕРЕ ЗАГРУЗКА {Math.floor(precent)}%</Styled.Loader>
+          {assetsIsLoaded && (
+            <Styled.StartButton onClick={() => handleStart()}>
+              НАЖМИ НА МЕНЯ
+            </Styled.StartButton>
+          )}
+        </>
       ) : (
         <Styled.GameContainer>
           <Telo categories={categories} clothes={clothesState} />

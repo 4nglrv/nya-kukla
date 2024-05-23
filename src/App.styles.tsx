@@ -7,6 +7,7 @@ const styledComponents = {
     width: 100vw;
     position: relative;
     display: flex;
+    flex-direction: column;
   `,
   GameContainer: styled.div`
     overflow: hidden;
@@ -20,6 +21,12 @@ const styledComponents = {
     margin-left: auto;
     margin-right: auto;
     margin-top: 40dvh;
+  `,
+  StartButton: styled.button`
+    display: inline;
+    max-width: 180px;
+    padding: 8px;
+    margin: 24px auto;
   `,
 };
 
